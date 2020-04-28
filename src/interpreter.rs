@@ -1,11 +1,13 @@
+use crate::modint::ModInt;
 use crate::parser::BF;
 use crate::tape::Tape;
-use crate::modint::ModInt;
 
 pub fn interpreter(
-    lst: &Vec<BF>, mut tape: &mut Tape,
-    mut input: &mut (Option<&String>, usize), show_tape: &bool
-    ) -> String {
+    lst: &[BF],
+    mut tape: &mut Tape,
+    mut input: &mut (Option<&String>, usize),
+    show_tape: bool,
+) -> String {
     let mut output = String::new();
     let empty = String::new();
     let input_str = input.0.unwrap_or_else(|| &empty);
@@ -20,16 +22,15 @@ pub fn interpreter(
                     tape.change(ModInt(input_str.bytes().nth(input.1).unwrap()));
                     input.1 += 1;
                 }
-            },
+            }
             BF::Output => output.push_str(&tape.take_val().to_string()),
             BF::Loop(l) => {
                 while tape.take_val() != ModInt(0) {
-                    output.push_str(&interpreter(&l, &mut tape,
-                                                 &mut input, &show_tape));
+                    output.push_str(&interpreter(&l, &mut tape, &mut input, show_tape));
                 }
-            },
+            }
         }
-        if *show_tape {
+        if show_tape {
             println!("{:?}", tape);
         }
     }

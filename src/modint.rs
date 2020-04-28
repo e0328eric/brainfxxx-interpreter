@@ -1,20 +1,20 @@
-use std::ops::{Add, Sub};
-use std::string::ToString;
-use std::str;
 use std::fmt;
+use std::ops::{Add, Sub};
+use std::str;
+use std::string::ToString;
 
 // ModInt Type
 #[derive(PartialEq, Clone, Copy)]
 pub struct ModInt(pub u8);
 
 impl ModInt {
-    pub fn to_int(&self) -> u8 {
+    pub fn to_int(self) -> u8 {
         self.0
     }
 }
 
 impl fmt::Debug for ModInt {
-    fn fmt(&self,  f: &mut fmt::Formatter<'_>) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "{}", self.0)
     }
 }

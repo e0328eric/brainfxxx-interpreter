@@ -11,7 +11,7 @@ pub enum Lexer {
 }
 
 // This lexer cannot treat the comment like "+" and so on
-pub fn lex(s: &String) -> Vec<Lexer> {
+pub fn lex(s: &str) -> Vec<Lexer> {
     let y: Vec<u8> = s.bytes().collect();
     let mut output: Vec<Lexer> = Vec::new();
     for i in y {
@@ -24,7 +24,7 @@ pub fn lex(s: &String) -> Vec<Lexer> {
             62 => output.push(Lexer::Right),
             91 => output.push(Lexer::BLoop),
             93 => output.push(Lexer::ELoop),
-            _ => {},
+            _ => {}
         }
     }
     output
